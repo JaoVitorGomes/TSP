@@ -10,21 +10,28 @@ import matplotlib.pyplot as plt
 def read_archive(x):
     return x;
 
+def evaluate(solution):
+    # Implemente aqui sua função de avaliação que calcula o valor do objetivo
+    # baseado nos valores das variáveis de decisão do "solution"
+    # Retorne uma lista contendo os valores dos objetivos
+    return [0]
 
 
-def alternate_dimensions():
-    global d_index
-    d_index = (d_index + 1) % len(dims)
-    return dims[d_index]
+value_Instance =  read_archive(0);
+max_avaliacoes = 0;
+num_variaveis = 0;
+num_objetivos = 0;
+limite_inferior = 0;
+limite_superior = 0;
 
+if(value_Instance < 50):
+    max_avaliacoes = 20000;
+else:
+    max_avaliacoes = 70000;
 
-def test_fun(x):
-    x = np.array(x).reshape(1, dims[d_index])
-    i = functions_list[f_index]
-    for xi in enumerate(x):
-        f = functions.all_functions[i](x)
-    return f
-
-
-
+problem = Problem(num_variaveis, num_objetivos)
+problem.types[:] = [Real(limite_inferior, limite_superior)] * num_variaveis
+problem.function = evaluate
+algorithm = PSO(max_evaluations=max_avaliacoes)
+algorithm.run(problem)
 
